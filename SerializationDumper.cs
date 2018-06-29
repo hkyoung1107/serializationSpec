@@ -137,8 +137,8 @@ namespace java.serialize
             increaseIndent();
 
             readClassDesc();
-            newHandle();
-            readNewString();
+            var handle = newHandle();
+            _globalObjects[handle] = readNewString();
 
             decreaseIndent();
 
@@ -316,8 +316,7 @@ namespace java.serialize
 
             readClassAnnotation();
 
-            readSuperClassDesc();
-            //cdd.AddSuperClassDesc(readSuperClassDesc());
+            cdd.AddSuperClassDesc(readSuperClassDesc());
         }
 
         private void readProxyClassDescInfo(ClassDataDesc cdd)
@@ -488,16 +487,9 @@ namespace java.serialize
                             var field = readContentElement();
                            
                             if (flag == 1)
-                            {
-                                if (field is ClassField)
-                                    cd.AddField((ClassField)field);
-                                else
-                                    cd.AddField(field);
-                            }
+                                cd.AddField((ClassField)field);
                             else
-                            {
                                 cd.DeleteFields(0);
-                            }
                             flag = 1;
                         }
 

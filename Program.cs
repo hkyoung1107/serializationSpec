@@ -14,7 +14,7 @@ namespace java.serialize
         {
             static void Main(string[] args)
             {
-                var path = @"/Users/yun/Desktop/list.ser";
+                var path = @"/Users/Yun/Desktop/clip";
                 var sd = new SerializationDumper(path);
                 //FileStream f = new FileStream(args[0], FileMode.Open, FileAccess.Read);
                 //BinaryReader br = new BinaryReader(f);
@@ -24,24 +24,24 @@ namespace java.serialize
                 if (!sd.ParseStream())
                     Console.WriteLine("Invalid STREAM_MAGIC, should be 0xac ed");
 
+
+                Console.WriteLine();
+
                 foreach (var cd in sd.ClassData)
                 {
                     foreach (var classDetail in cd.ClassDetails)
                     {
-                        if (classDetail.ClassName == "List")
+                        if (classDetail.ClassName == "com.samsung.android.content.clipboard.data.SemHtmlClipData")
                         {
                             foreach (ClassField field in classDetail.GetFields())
                             {
-                                if (field.GetName() == "next")
+                                if (field.GetName() == "mHtml")
                                 {
-                                    
+                                    Console.WriteLine(field);
                                 }
-
                             }
                         }
                     }
-
-                    Console.WriteLine(cd);
                 }
             }
         }

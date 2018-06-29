@@ -12,14 +12,14 @@ namespace java.serialize
         private readonly string _className;
         private int _refHandle;
         private byte _classDescFlags;
-        private readonly ArrayList _fieldDescriptions;
+        private readonly List<ClassField> _fieldDescriptions;
 
         public ClassDetails(string className)
         {
             this._className = className;
             this._refHandle = -1;
             this._classDescFlags = 0;
-            this._fieldDescriptions = new ArrayList();
+            this._fieldDescriptions = new List<ClassField>();
         }
 
         public ClassDetails(ClassDetails cd)
@@ -28,7 +28,7 @@ namespace java.serialize
             this._refHandle = cd.GetHandle();
             this._classDescFlags = cd._classDescFlags;
 
-            this._fieldDescriptions = new ArrayList();
+            this._fieldDescriptions = new List<ClassField>();
             foreach (ClassField cf in cd.GetFields())
             {
                 this._fieldDescriptions.Add(new ClassField(cf));
@@ -80,12 +80,12 @@ namespace java.serialize
             return (this._classDescFlags & 0x8) == 8;
         }
 
-        public void AddField(object cf)
+        public void AddField(ClassField cf)
         {
             this._fieldDescriptions.Add(cf);
         }
 
-        public ArrayList GetFields()
+        public List<ClassField> GetFields()
         {
             return this._fieldDescriptions;
         }
